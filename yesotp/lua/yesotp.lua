@@ -51,12 +51,6 @@ local function generate_iss()
    return get_user_ip() .. "-" .. get_user_agent()
 end
 
-local function reset_cookies()
-   local c = get_config("cookie")
-   local cookie = ck:new()
-   cookie:set({key=c["auth_cookie"], value="", expires="-3600"})
-   cookie:set({key=c["preauth_cookie"], value="", expires="-3600"})
-end
 
 local function set_request_jwt_token(jwt_token)
    local cookie, err = ck:new()
@@ -145,7 +139,6 @@ end
 local function verify_jwt_token(stage_name)
     local c = get_config("jwt")
 
-    -- TODO: change lua-resty-jwt, this is the encryption key!
     local jwt_obj = jwt:verify(c["encryption_key"], get_request_jwt_token(), {
         exp= jwt_validator.is_not_expired(),
         iss= jwt_validator.equals(generate_iss()),
@@ -191,7 +184,7 @@ local function verify_email_input(mail)
    local auth_conf = get_config("authorization")
    local lastAt = mail:find("[^%@]+$")
 
-   -- validate.email does not able to cache "test@" inputs so we are gonna check is there something.
+   -- validate.email does not able to cache "test@" inputs so we are gonna check.
    if lastAt == nil then
       return false
    end
@@ -284,7 +277,7 @@ function yesotp.make_me_safe(config)
       end
 
       if verify_captcha_response(captcha_response) == true and verify_jwt_token(vrfy_code) == true then
-         generate_jwt_token("SIGNED", 60*60*4) -- This stage name will be the verified
+         generate_jwt_token("SIGNED", 60*60*4) -- This stage name for verified users
          ngx.redirect("/")
          return
       else
