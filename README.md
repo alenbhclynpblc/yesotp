@@ -1,20 +1,20 @@
-## YESOTP 
+## YESOTP 
 ### About
 
 This tool is designed for OTP based access control management. Nothing big or shiny, it will deploy a tiny lua script and will work over OpenResty (Nginx).
 
-### Structure
+### Structure
 
 Client <=> Reverse Proxy with YESOTP <=> HTTP Server
 
 All requests will be passed over YESOTP reverse proxy server, if user is already authenticated nothing to do, otherwise application will not allow to access.
 
-### Logon Pages
+### Logon Pages
 Thanks for free template :-)
 ![alt text](https://raw.githubusercontent.com/alenbhclynpblc/yesotp/master/_img/email.png)
 ![alt text](https://raw.githubusercontent.com/alenbhclynpblc/yesotp/master/_img/otp.png)
 
-### Needs
+### Needs
 ##### User Validation
 - You can allow a domain address for all e-mails (ex: test.com will cover all X@test.com)
 - You can specify every single e-mail address
@@ -38,7 +38,7 @@ You will need and SMTP endpoint for mails.
   - resty.template
   - resty.http
 
-##### Ubuntu
+##### Ubuntu
 ```bash
 # Note: if nginx is already installed and running, try disabling and stopping it before installing openresty like below:
 sudo systemctl disable nginx;
@@ -81,7 +81,7 @@ nano /usr/local/openresty/nginx/conf/nginx.conf
 sudo openresty;
 ```
 
-##### Debian Jessie or Later
+##### Debian Jessie or Later
 ```bash
 # Note: if nginx is already installed and running, try disabling and stopping it before installing openresty like below:
 sudo systemctl disable nginx;
@@ -120,7 +120,7 @@ cp -r yesotp /etc/yesotp/;
 # Configure your nginx.conf file buddy :-)
 nano /usr/local/openresty/nginx/conf/nginx.conf
 ```
-## Example Configuration
+## Example Configuration
 
 ```nginx
 http {
@@ -196,7 +196,7 @@ http {
           }
 ```
 
-## Deployment Checklist
+## Deployment Checklist
 
 - Did you defined "resolver X.X.X.X" ? 
 - Did you defined ipv6=off; at "resolver X.X.X.X ipv6=off;" ? 
