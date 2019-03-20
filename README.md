@@ -47,18 +47,12 @@ sudo systemctl stop nginx;
 # Lets install OpenResty
 wget -qO - https://openresty.org/package/pubkey.gpg | sudo apt-key add -;
 sudo apt-get -y install software-properties-common;
-sudo add-apt-repository -y "deb http://openresty.org/package/ubuntu $(lsb_release -sc) openresty";
+sudo add-apt-repository -y "deb http://openresty.org/package/ubuntu $(lsb_release -sc) main";
 sudo apt-get update;
+sudo apt-get install libpcre3-dev libssl-dev perl make build-essential curl;
+sudo apt-get install lua5.3;
 sudo apt-get install openresty;
-
-# Lets install luarocks for package management.
-# For more help: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
-wget https://luarocks.org/releases/luarocks-3.0.4.tar.gz;
-tar zxpf luarocks-3.0.4.tar.gz;
-cd luarocks-3.0.4;
-./configure; 
-make build;
-make install;
+sudo apt-get install luarocks;
 
 # Lets install packages which we need
 luarocks install lua-resty-cookie;
