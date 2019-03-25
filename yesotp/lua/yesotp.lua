@@ -10,17 +10,13 @@ local jwt = require('resty.jwt')
 local jwt_validator = require('resty.jwt-validators')
 local ck = require('resty.cookie')
 local smtp = require('resty.mail')
-local inspect = require('inspect')
 local validation = require("resty.validation")
 local template_engine = require("resty.template")
 local http = require("resty.http")
 
 function get_otp_token()
-	local res = ""
-	for i = 1,3 do
-		res = res .. math.random(1,10) .. string.char(math.random(97, 122))
-	end
-	return res
+        math.randomseed(os.time() + tonumber(tostring({}):sub(8)))
+        return tostring(math.random(100000, 10000000))
 end
 
 local function split(s, delimiter)
